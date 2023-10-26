@@ -4,9 +4,9 @@ import { formatPrice } from '../../utils/helpers';
 import { ProductData } from 'types';
 import html from './productDetail.tpl.html';
 import { cartService } from '../../services/cart.service';
+import { fetchWithUserId } from '../../utils/fetchUtils';
 import { sendEvent } from '../../utils/analytics';
 import { favoritesService } from '../../services/favorites.service';
-
 
 class ProductDetail extends Component {
   more: ProductList;
@@ -50,7 +50,7 @@ class ProductDetail extends Component {
         sendEvent(type, { ...this.product, secretKey: secretKey });
       })
 
-    fetch('/api/getPopularProducts')
+    fetchWithUserId('/api/getPopularProducts')
       .then((res) => res.json())
       .then((products) => {
         this.more.update(products);
