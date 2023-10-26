@@ -3,6 +3,7 @@ import { Component } from '../component';
 import html from './homepage.tpl.html';
 
 import { ProductList } from '../productList/productList';
+import searchSuggestionsComp from '../searchSuggestions/searchSuggestions'
 import { fetchWithUserId } from '../../utils/fetchUtils';
 
 class Homepage extends Component {
@@ -10,6 +11,7 @@ class Homepage extends Component {
 
   constructor(props: any) {
     super(props);
+    searchSuggestionsComp.attach(this.view.search);
 
     this.popularProducts = new ProductList();
     this.popularProducts.attach(this.view.popular);
@@ -21,7 +23,7 @@ class Homepage extends Component {
       .then((products) => {
         this.popularProducts.update(products);
       });
-
+    
     const isSuccessOrder = new URLSearchParams(window.location.search).get('isSuccessOrder');
     if (isSuccessOrder != null) {
       const $notify = addElement(this.view.notifies, 'div', { className: 'notify' });
