@@ -1,10 +1,15 @@
 export const sendEvent = (type: string, payload: any) => {
-    const event = {
-        type,
-        payload: JSON.stringify(payload),
-        timestamp: Date.now().toString()
-     };
-  
-    const queryParams = new URLSearchParams(event).toString();
-    fetch(`/api/sendEvent?${queryParams}`);
+  const event = {
+    type,
+    payload,
+    timestamp: Date.now()
+  };
+
+  fetch('/api/sendEvent', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(event)
+  });
 }
