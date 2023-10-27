@@ -49,6 +49,7 @@
   }
   &__examples {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     align-items: center;
     margin: 16px 0 16px 14px;
@@ -64,9 +65,13 @@
     background: var(--plate-color);
     padding: 4px 6px 8px 6px;
     font-weight: 600;
+    cursor: pointer;
   }
   &__normal-text {
     padding-bottom: 4px;
+  }
+  &__normal-text_comma {
+    margin-left: -5px;
   }
   &__example-text {
     background: var(--system-gradient-violet);
