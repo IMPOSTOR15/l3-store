@@ -11,7 +11,9 @@ class Homepage extends Component {
 
   constructor(props: any) {
     super(props);
+    
     searchSuggestionsComp.attach(this.view.search);
+    searchSuggestionsComp.render()
 
     this.popularProducts = new ProductList();
     this.popularProducts.attach(this.view.popular);
