@@ -3,24 +3,29 @@ import { Component } from '../component';
 import html from './homepage.tpl.html';
 
 import { ProductList } from '../productList/productList';
+import searchSuggestionsComp from '../searchSuggestions/searchSuggestions'
+import { fetchWithUserId } from '../../utils/fetchUtils';
 
 class Homepage extends Component {
   popularProducts: ProductList;
 
   constructor(props: any) {
     super(props);
+    
+    searchSuggestionsComp.attach(this.view.search);
+    searchSuggestionsComp.render()
 
     this.popularProducts = new ProductList();
     this.popularProducts.attach(this.view.popular);
   }
 
   render() {
-    fetch('/api/getPopularProducts')
+    fetchWithUserId('/api/getPopularProducts')
       .then((res) => res.json())
       .then((products) => {
         this.popularProducts.update(products);
       });
-
+    
     const isSuccessOrder = new URLSearchParams(window.location.search).get('isSuccessOrder');
     if (isSuccessOrder != null) {
       const $notify = addElement(this.view.notifies, 'div', { className: 'notify' });
