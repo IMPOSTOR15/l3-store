@@ -3,12 +3,6 @@ import { View } from '../../utils/view';
 import html from './searchSuggestions.tpl.html';
 import { Component } from '../component';
 
-const suggestionsData = [
-  'чехол iphone 13 pro',
-  'коляски agex',
-  'резина',
-  'яндекс станция 2',
-]
 
 class SearchSuggestions extends Component  {
   view: View;
@@ -17,7 +11,7 @@ class SearchSuggestions extends Component  {
       super(props);
       this.view = new ViewTemplate(html).cloneView();
     }
-  
+
     generateSuggestions(suggestionsData: string[]) {
         const suggestionsContainer = this.view.root.querySelector('.search-suggestions__examples');
         
@@ -33,7 +27,7 @@ class SearchSuggestions extends Component  {
         };
     
         suggestionsContainer.appendChild(createElement('span', 'search-suggestions__normal-text', 'Например,'));
-    
+        
         suggestionsData.forEach((suggestion, index) => {
             const suggestionElem = createElement('div', 'search-suggestions__example');
             suggestionElem.appendChild(createElement('span', 'search-suggestions__example-text', suggestion));
@@ -52,9 +46,18 @@ class SearchSuggestions extends Component  {
     
         return suggestionsContainer;
     }
-  
+    
+    async getSearchSuggestions() {
+      return [
+        'чехол iphone 13 pro',
+        'коляски agex',
+        'резина',
+        'яндекс станция 2',
+      ]
+    }
 
-    render() {
+    async render() {
+      const suggestionsData = await this.getSearchSuggestions();
       this.view.root.appendChild(this.generateSuggestions(suggestionsData));
     }
 
