@@ -2,4 +2,9 @@
   &__empty {
     display: none;
   }
+  &.is__empty {
+    .favorites__empty {
+      display: block;
+    }
+  }
 }
